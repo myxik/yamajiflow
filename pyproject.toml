@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "jyflow"
+version = "0.1.0"
+description = "Your personalized newsfeed for keeping up with research"
+authors = ["James Yamazaki <myxikpupsik@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-dotenv = "^1.0.1"
+requests = "^2.32.3"
+arxiv = "^2.1.3"
+openai = "^1.54.3"
+faiss-cpu = "^1.9.0"
+tenacity = "^9.0.0"
+jinja2 = "^3.1.4"
+toml = "^0.10.2"
+typer = "^0.13.0"
+types-toml = "^0.10.8.20240310"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.0"
+mypy = "^1.8.0"
+pre-commit = "^3.6.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+lint.select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+]
+
+[tool.poetry.scripts]
+jyflow = "jyflow.cli:app"

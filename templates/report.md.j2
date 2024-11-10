@@ -1,0 +1,15 @@
+# Article Analysis Report
+
+{% for article, explanation in zipped_list %}
+## {{ article.title }}
+
+You might like this article because {{ explanation }}
+
+Here is the abstract of the article:
+
+{{ article.abstract }}
+
+Link to the article: {{ article.pdf_url }}
+
+---
+{% endfor %}
