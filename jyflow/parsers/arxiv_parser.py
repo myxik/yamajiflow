@@ -5,11 +5,7 @@ import arxiv
 
 from jyflow.dataclasses.article import Article
 
-categories_for_ml = [
-    "cs.LG",
-    "cs.AI",
-    #   "cs.CV", "cs.CL", "stat.ML", "math.OC"
-]
+categories_for_ml = ["cs.LG","cs.AI", "cs.CV", "cs.CL", "stat.ML", "math.OC"]
 
 
 def fetch_arxiv_articles(target_date: date) -> List[Dict]:
