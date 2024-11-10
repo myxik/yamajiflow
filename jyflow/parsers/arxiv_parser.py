@@ -7,7 +7,7 @@ from jyflow.dataclasses.article import Article
 
 categories_for_ml = [
     "cs.LG",
-      "cs.AI",
+    "cs.AI",
     #   "cs.CV", "cs.CL", "stat.ML", "math.OC"
 ]
 
@@ -27,12 +27,8 @@ def fetch_arxiv_articles(target_date: date) -> List[Dict]:
     articles = []
 
     for category in categories_for_ml:
-        category_query = f'cat:{category}'
-        search = arxiv.Search(
-            query=category_query,
-            max_results=10,
-            sort_by=arxiv.SortCriterion.SubmittedDate
-        )
+        category_query = f"cat:{category}"
+        search = arxiv.Search(query=category_query, max_results=10, sort_by=arxiv.SortCriterion.SubmittedDate)
 
         for result in client.results(search):
             if result.entry_id in seen_ids or result.published.date() < target_date:  # TODO: look into it
@@ -40,17 +36,17 @@ def fetch_arxiv_articles(target_date: date) -> List[Dict]:
 
             seen_ids.add(result.entry_id)
             article = {
-                'title': result.title,
-                'authors': [author.name for author in result.authors],
-                'summary': result.summary,
-                'published': result.published.date(),
-                'updated': result.updated.date(),
-                'doi': result.doi,
-                'primary_category': result.primary_category,
-                'categories': result.categories,
-                'links': [link.href for link in result.links],
-                'pdf_url': result.pdf_url,
-                'entry_id': result.entry_id
+                "title": result.title,
+                "authors": [author.name for author in result.authors],
+                "summary": result.summary,
+                "published": result.published.date(),
+                "updated": result.updated.date(),
+                "doi": result.doi,
+                "primary_category": result.primary_category,
+                "categories": result.categories,
+                "links": [link.href for link in result.links],
+                "pdf_url": result.pdf_url,
+                "entry_id": result.entry_id,
             }
             articles.append(article)
 
@@ -59,13 +55,13 @@ def fetch_arxiv_articles(target_date: date) -> List[Dict]:
 
 def construct_article(article: Dict) -> Article:
     return Article(
-        title=article['title'],
-        authors=article['authors'],
-        abstract=article['summary'],
-        published=article['published'],
-        primary_category=article['primary_category'],
-        categories=article['categories'],
-        pdf_url=article['pdf_url']
+        title=article["title"],
+        authors=article["authors"],
+        abstract=article["summary"],
+        published=article["published"],
+        primary_category=article["primary_category"],
+        categories=article["categories"],
+        pdf_url=article["pdf_url"],
     )
 
 

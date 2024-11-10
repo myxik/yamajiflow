@@ -14,7 +14,7 @@ class MarkdownProcessor:
     def __init__(self, template_dir: str = "templates"):
         self.env = Environment(
             loader=FileSystemLoader(template_dir),
-            autoescape=False  # Disable autoescaping for markdown
+            autoescape=False,  # Disable autoescaping for markdown
         )
         self.template = self.env.get_template("report.md.j2")
 

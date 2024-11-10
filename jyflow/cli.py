@@ -15,9 +15,7 @@ app.add_typer(generate_app, name="generate")
 
 
 @generate_app.command()
-def summaries(
-    date: str = typer.Option("today"), interests: str = typer.Option(...), k: int = typer.Option(10)
-) -> None:
+def summaries(date: str = typer.Option("today"), interests: str = typer.Option(...), k: int = typer.Option(10)) -> None:
     print(f"Generating summaries for {date} with interests: {interests}")
 
     api_key = os.getenv("OPENAI_API_KEY")
@@ -41,14 +39,10 @@ def summaries(
     selected_articles = [articles_list[i] for i in indices[0]]
     assert len(selected_articles) == k
 
-    summary_processor = processors.SummaryProcessor(
-        api_key=api_key, system_prompt=utils.load_system_prompt()
-    )
+    summary_processor = processors.SummaryProcessor(api_key=api_key, system_prompt=utils.load_system_prompt())
     summaries = summary_processor.process_articles(selected_articles, interests)
 
     markdown_processor = processors.MarkdownProcessor()
-    markdown_processor.save_report(
-        markdown_processor.generate_report(selected_articles, summaries), "./report.md"
-    )
+    markdown_processor.save_report(markdown_processor.generate_report(selected_articles, summaries), "./report.md")
 
     print("Report saved to report.md. Enjoy!")

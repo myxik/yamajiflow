@@ -23,7 +23,7 @@ class SummaryProcessor:
         self.client = OpenAI(api_key=api_key)
         self.system_prompt = system_prompt
 
-    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=2, max=5))
     def generate_explanation(self, prompt: str) -> str:
         """
         Generate relevance explanation using OpenAI API with retry logic.
@@ -37,12 +37,9 @@ class SummaryProcessor:
         try:
             response = self.client.chat.completions.create(
                 model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": self.system_prompt},
-                    {"role": "user", "content": prompt}
-                ],
+                messages=[{"role": "system", "content": self.system_prompt}, {"role": "user", "content": prompt}],
                 max_tokens=500,
-                temperature=0.02
+                temperature=0.02,
             )
             output_str = response.choices[0].message.content
             assert isinstance(output_str, str), "Output from OpenAI is not a string"
