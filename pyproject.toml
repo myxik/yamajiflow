@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "jyflow"
-version = "0.1.0"
+version = "0.1.1"
 description = "Your personalized newsfeed for keeping up with research"
 authors = ["James Yamazaki <myxikpupsik@gmail.com>"]
+include = [
+    "jyflow/prompts.toml",
+    "jyflow/templates/*",
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"

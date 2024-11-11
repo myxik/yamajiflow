@@ -26,6 +26,10 @@ def summaries(date: str = typer.Option("today"), interests: str = typer.Option(.
 
     articles_list = arxiv_parser.parse_articles(arxiv_parser.fetch_arxiv_articles(date_obj))
 
+    if len(articles_list) == 0:
+        print(f"No articles found for {date} :(. Exiting.")
+        return
+
     embedding_processor = processors.EmbeddingProcessor(api_key=api_key)
     embeddings = embedding_processor.generate_embeddings(articles_list)
 

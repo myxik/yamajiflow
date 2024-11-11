@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List
 
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, PackageLoader, select_autoescape
 
 from jyflow.dataclasses import Article
 
@@ -11,10 +11,10 @@ class MarkdownProcessor:
     A processor class for generating markdown reports using Jinja2 templates.
     """
 
-    def __init__(self, template_dir: str = "templates"):
+    def __init__(self, template_dir: str = "./templates"):
         self.env = Environment(
-            loader=FileSystemLoader(template_dir),
-            autoescape=False,  # Disable autoescaping for markdown
+            loader=PackageLoader('jyflow', 'templates'),
+            autoescape=select_autoescape(['md']),
         )
         self.template = self.env.get_template("report.md.j2")
 
