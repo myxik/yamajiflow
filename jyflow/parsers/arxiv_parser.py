@@ -27,9 +27,11 @@ def fetch_arxiv_articles(target_date: date) -> List[Dict]:
         search = arxiv.Search(query=category_query, max_results=10, sort_by=arxiv.SortCriterion.SubmittedDate)
 
         for result in client.results(search):
-            if result.entry_id in seen_ids or result.published.date() < target_date:  # TODO: look into it
+            if result.entry_id in seen_ids:
                 continue
 
+            if result.published.date() != target_date:
+                continue
             seen_ids.add(result.entry_id)
             article = {
                 "title": result.title,
