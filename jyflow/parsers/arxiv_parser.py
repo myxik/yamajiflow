@@ -8,13 +8,13 @@ from jyflow.dataclasses.article import Article
 categories_for_ml = ["cs.LG","cs.AI", "cs.CV", "cs.CL", "stat.ML", "math.OC"]
 
 
-def fetch_arxiv_articles(target_date: date) -> List[Dict]:
+def fetch_arxiv_articles(target_date: date, max_results: int = 100) -> List[Dict]:
     """
     Fetch unique arXiv articles from specific categories published on or before the target date.
 
     Args:
         target_date (date): Only include papers published on or before this date
-
+        max_results (int): Maximum number of results to return
     Returns:
         List[Dict]: List of unique articles with their metadata
     """
@@ -24,7 +24,7 @@ def fetch_arxiv_articles(target_date: date) -> List[Dict]:
 
     for category in categories_for_ml:
         category_query = f"cat:{category}"
-        search = arxiv.Search(query=category_query, max_results=10, sort_by=arxiv.SortCriterion.SubmittedDate)
+        search = arxiv.Search(query=category_query, max_results=max_results, sort_by=arxiv.SortCriterion.SubmittedDate)
 
         for result in client.results(search):
             if result.entry_id in seen_ids:
